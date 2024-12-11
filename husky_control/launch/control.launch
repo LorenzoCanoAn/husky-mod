@@ -18,6 +18,7 @@
 
   <!-- Load robot description -->
   <include file="$(find husky_description)/launch/description.launch" >
+    <arg name="robot_namespace" value="$(arg robot_namespace)"/>
   </include>
 
   <!-- Load controller configuration -->
@@ -25,7 +26,12 @@
 
   <!-- Spawn controllers -->
   <node name="base_controller_spawner" pkg="controller_manager" type="spawner"
-        args="husky_joint_publisher husky_velocity_controller"/>
+        args="husky_joint_publisher husky_velocity_controller">
+        </node>
+
+  <rosparam param="base_frame_id" ns="husky_velocity_controller" subst_value="True">
+        $(arg robot_namespace)/base_link
+  </rosparam>
   <rosparam param="wheel_radius_multiplier" ns="husky_velocity_controller" subst_value="True">
         $(optenv HUSKY_WHEEL_MULTIPLIER 1.0)
   </rosparam>
@@ -41,7 +47,9 @@
     <param name="link_name" value="base_link" />
   </node>
 
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <param name="tf_prefix" value="$(arg robot_namespace)"/>
+  </node>
 
   <node pkg="twist_mux" type="twist_mux" name="twist_mux">
     <rosparam command="load" file="$(find husky_control)/config/twist_mux.yaml" />

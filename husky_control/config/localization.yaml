@@ -1,6 +1,6 @@
-odom_frame: odom
-base_link_frame: base_link
-world_frame: odom
+odom_frame: /cpr_husky/odom
+base_link_frame: /cpr_husky/base_link
+world_frame: /cpr_husky/odom
 
 two_d_mode: true
 
