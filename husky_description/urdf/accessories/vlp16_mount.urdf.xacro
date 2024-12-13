@@ -79,7 +79,7 @@
       <origin xyz="0 0 ${height}" rpy="0 0 0"/>
     </joint>
 
-    <xacro:VLP-16 parent="${prefix}vlp16_mount_plate" topic="${topic}" name="${prefix}velodyne">
+    <xacro:VLP-16 parent="${prefix}vlp16_mount_plate" topic="${topic}" name="${prefix}velodyne" gpu="true">
       <origin xyz="0 0 0.0063" rpy="0 0 0" />
     </xacro:VLP-16>
   </xacro:macro>
